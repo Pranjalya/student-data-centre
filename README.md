@@ -1,3 +1,5 @@
+For scanning QR codes, laptop uses its webcam (if available), and mobiles use back camera by default.
+
 ## Installation
 
 Please install these prerequisites for the project:
@@ -60,6 +62,7 @@ $ yarn build
 ```
 
 # You liked it?
-- Star the GitHub repo
-- If you want to work further and update on this, do fork and submit pull requests
-- Enjoy
+
+- Star the GitHub repo ;)
+- If you want to work further and update on this, do fork and submit pull requests, I'll look on it
+- Enjoy, please! :D
