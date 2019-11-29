@@ -46,7 +46,6 @@
 
 <script>
 import { debounce } from 'lodash'
-import data from '../markup-tables/data.json'
 import PouchDB from 'pouchdb'
 
 export default {

@@ -315,18 +315,18 @@ export default {
       this.remoteDB
         .get(this.studentid)
         .then(doc => {
-          this.name = doc.name;
-          this.fathername = doc.fathername;
-          this.dob = doc.dob;
-          this.rollno = doc.rollno;
-          this.program = doc.program;
-          this.branch = doc.branch;
-          this.semester = doc.semester;
-          this.email = doc.email;
-          this.gender = doc.gender;
-          this.phone = doc.phone;
-          this.account = doc.account;
-          this.bookdatas = doc.bookdatas;
+          this.name = doc.name
+          this.fathername = doc.fathername
+          this.dob = doc.dob
+          this.rollno = doc.rollno
+          this.program = doc.program
+          this.branch = doc.branch
+          this.semester = doc.semester
+          this.email = doc.email
+          this.gender = doc.gender
+          this.phone = doc.phone
+          this.account = doc.account
+          this.bookdatas = doc.bookdatas
         })
         .catch(err => console.log(err))
     },
