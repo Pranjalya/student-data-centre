@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard">
-    >
     <div class="row">
       <div class="flex xs12">
         <dashboard-table />
