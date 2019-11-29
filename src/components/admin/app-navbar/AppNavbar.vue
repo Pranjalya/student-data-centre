@@ -2,45 +2,16 @@
   <va-navbar class="app-navbar">
     <header-selector slot="selector" :minimized.sync="minimizedProxy"/>
     <template slot="logo">
-      <va-icon-vuestic/>
     </template>
     <template slot="center">
       <div class="row flex-nowrap align--center justify--space-between">
-        <span class="va-navbar__text no-wrap">
-          {{$t('navbar.messageUs')}}&nbsp;
-          <a
-            href="mailto:hello@epicmax.co"
-            target="_blank"
-            class="app-navbar__mailto-link"
-            :style="{color: this.$themes.primary}"
-          >
-            hello@epicmax.co
-          </a>
-        </span>
-        <div>
-          <va-button
-            href="https://github.com/epicmaxco/vuestic-admin"
-            color="#000000"
-            class="app-navbar__button text--bold"
-            icon="fa fa-github"
-            target="_blank"
-          >
-            {{$t('navbar.support')}}
-          </va-button>
-        </div>
+        <h1 style="color: whitesmoke; font-size: 35px">Student Data Center</h1>
       </div>
     </template>
     <div class="app-navbar__actions row flex-nowrap align--center">
       <color-dropdown class="va-navbar__item"/>
-      <message-dropdown class="va-navbar__item"/>
-      <notification-dropdown class="va-navbar__item"/>
-      <!--<settings-dropdown-->
-        <!--class="va-navbar__item"-->
-        <!--:navbar-view.sync="navbarViewProxy"-->
-      <!--/>-->
-      <language-dropdown class="va-navbar__item"/>
       <profile-dropdown class="va-navbar__item">
-        <span>{{userName}}</span>
+        <span>{{getName}}</span>
       </profile-dropdown>
     </div>
   </va-navbar>
@@ -77,7 +48,7 @@ export default {
   },
   data () {
     return {
-      userName: 'Vasili S',
+
     }
   },
   computed: {
@@ -88,6 +59,9 @@ export default {
       set (minimized) {
         this.$emit('update:minimized', minimized)
       },
+    },
+    getName () {
+      return this.$store.state.username
     },
   },
 }

@@ -21,7 +21,7 @@ export default new Router({
     ...demoRoutes,
     {
       path: '*',
-      redirect: { name: 'dashboard' },
+      redirect: { name: 'login' },
     },
     {
       path: '/auth',
@@ -36,6 +36,11 @@ export default new Router({
           name: 'signup',
           path: 'signup',
           component: () => import('../components/auth/signup/Signup.vue'),
+        },
+        {
+          name: 'student',
+          path: 'student',
+          component: () => import('../components/auth/student/Student.vue'),
         },
         {
           name: 'recover-password',
@@ -84,6 +89,18 @@ export default new Router({
           path: 'dashboard',
           component: () => import('../components/dashboard/Dashboard.vue'),
           default: true,
+        },
+        {
+          name: 'addstudent',
+          path: 'addstudent',
+          component: () => import('../components/dashboard/AddStudent.vue'),
+          default: false,
+        },
+        {
+          name: 'updatestudent',
+          path: 'updatestudent',
+          component: () => import('../components/dashboard/UpdateStudent.vue'),
+          default: false,
         },
         {
           name: 'statistics',

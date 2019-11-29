@@ -8,8 +8,10 @@
     "password": "Password",
     "recover_password": "Recover password",
     "sign_up": "Sign Up",
+    "student": "Student",
     "keep_logged_in": "Keep me logged in",
     "termsOfUse": "Terms of Use.",
+    "name": "Name",
     "reset_password": "Reset password"
   },
   "404": {
@@ -126,7 +128,7 @@
       "teamMembers": "team members"
     },
     "table": {
-      "title": "Awesome table",
+      "title": "List of Students with Unresolved Dues",
       "brief": "Brief",
       "detailed": "Detailed",
       "resolve": "Resolve",
@@ -275,7 +277,11 @@
     "simplified_chinese": "Simplified Chinese"
   },
   "menu": {
+    "addstudent": "Add Student Detail",
+    "updatestudent": "Update Student Details",
     "auth": "Auth",
+    "student": "Student Details",
+    "qrcode": "QR Code",
     "rating": "Rating",
     "buttons": "Buttons",
     "charts": "Charts",
@@ -435,11 +441,16 @@
     "loading": "Loading",
     "headings": {
       "email": "Email",
+      "tuition": "Tuition Fee Status",
+      "extra": "Library and Lab Fines",
       "name": "Name",
       "firstName": "First Name",
       "lastName": "Last Name",
       "status": "Status",
-      "country": "Country"
+      "country": "Country",
+      "bookname": "Book Name",
+      "bookid": "Book ID",
+      "lastdate": "Last Date"
     }
   },
   "user": {

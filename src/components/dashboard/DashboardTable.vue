@@ -2,42 +2,32 @@
   <va-card :title="$t('dashboard.table.title')">
     <div class="row align--center mb-1">
       <div class="flex xs12 sm6">
-          <va-input
-            class="ma-0"
-            :value="term"
-            :placeholder="$t('tables.searchByName')"
-            @input="search"
-          >
-            <va-icon name="fa fa-search" slot="prepend" />
-          </va-input>
-      </div>
-
-      <div class="flex xs12 sm6">
-        <div class="d-flex justify--end">
-          <va-button-toggle
-            outline
-            v-model="mode"
-            :options="modeOptions"
-            style="max-width: 100%"
-          />
-        </div>
+        <va-input
+          class="ma-0"
+          :value="term"
+          :placeholder="$t('tables.searchByName')"
+          @input="search"
+        >
+          <va-icon name="fa fa-search" slot="prepend" />
+        </va-input>
       </div>
     </div>
 
-    <va-data-table
-      :fields="fields"
-      :data="filteredData"
-      :loading="loading"
-      hoverable
-    >
+    <va-data-table :fields="fields" :data="filteredInfo" :loading="loading" hoverable>
       <template slot="icon" slot-scope="props">
         <va-icon name="fa fa-user" color="secondary" />
       </template>
 
-      <template slot="status" slot-scope="props">
-        <va-badge :color="getStatusColor(props.rowData.status)">
-          {{ props.rowData.status }}
-        </va-badge>
+      <template slot="tuitionstatus" slot-scope="props">
+        <va-badge
+          :color="getStatusColor(props.rowData.account.tuitionpaid)"
+        >{{ props.rowData.account.tuitionpaid }}</va-badge>
+      </template>
+
+      <template slot="extrastatus" slot-scope="props">
+        <va-badge
+          :color="getStatusColor(props.rowData.account.extrapaid)"
+        >{{ props.rowData.account.extrapaid }}</va-badge>
       </template>
 
       <template slot="actions" slot-scope="props">
@@ -47,10 +37,8 @@
           color="success"
           icon="fa fa-check"
           class="ma-0"
-          @click="resolveUser(props.rowData)"
-        >
-          {{ $t('dashboard.table.resolve') }}
-        </va-button>
+          @click="resolveInfo(props.rowData)"
+        >{{ $t('dashboard.table.resolve') }}</va-button>
       </template>
     </va-data-table>
   </va-card>
@@ -59,77 +47,70 @@
 <script>
 import { debounce } from 'lodash'
 import data from '../markup-tables/data.json'
+import PouchDB from 'pouchdb'
 
 export default {
   data () {
     return {
-      users: data.slice(),
       loading: false,
       term: null,
       mode: 0,
+      remoteDB: {},
+      info: [],
     }
   },
   computed: {
     fields () {
-      return [{
-        name: '__slot:icon',
-        width: '30px',
-        dataClass: 'text-center',
-      }, {
-        name: 'name',
-        title: this.$t('tables.headings.name'),
-        width: '30%',
-      }, {
-        name: 'email',
-        title: this.$t('tables.headings.email'),
-        width: '30%',
-      }, {
-        name: '__slot:status',
-        title: this.$t('tables.headings.status'),
-        width: '20%',
-        sortField: 'status',
-      }, {
-        name: '__slot:actions',
-        dataClass: 'text-right',
-      }]
+      return [
+        {
+          name: '__slot:icon',
+          width: '30px',
+          dataClass: 'text-center',
+        },
+        {
+          name: 'name',
+          title: this.$t('tables.headings.name'),
+          width: '30%',
+        },
+        {
+          name: 'email',
+          title: this.$t('tables.headings.email'),
+          width: '30%',
+        },
+        {
+          name: '__slot:tuitionstatus',
+          title: this.$t('tables.headings.tuition'),
+          width: '20%',
+        },
+        {
+          name: '__slot:extrastatus',
+          title: this.$t('tables.headings.extra'),
+          width: '20%',
+        },
+        {
+          name: '__slot:actions',
+          dataClass: 'text-right',
+        },
+      ]
     },
-    modeOptions () {
-      return [{
-        value: 0,
-        label: this.$t('dashboard.table.brief'),
-      }, {
-        value: 1,
-        label: this.$t('dashboard.table.detailed'),
-      }]
-    },
-    filteredData () {
-      if (!this.term || this.term.length < 1) {
-        return this.users
-      }
 
-      return this.users.filter(item => {
+    filteredInfo () {
+      if (!this.term || this.term.length < 1) {
+        return this.info
+      }
+      return this.info.filter(item => {
         return item.name.toLowerCase().startsWith(this.term.toLowerCase())
       })
     },
   },
+
   methods: {
-    getStatusColor (status) {
-      if (status === 'paid') {
-        return 'success'
-      }
-
-      if (status === 'processing') {
-        return 'info'
-      }
-
-      return 'danger'
-    },
-    resolveUser (user) {
+    resolveInfo (user) {
       this.loading = true
 
       setTimeout(() => {
-        const idx = this.users.findIndex(u => u.id === user.id)
-        this.users.splice(idx, 1)
+        const idx = this.info.findIndex(u => u._id === user._id)
+        this.info.splice(idx, 1)
         this.loading = false
 
         this.showToast(this.$t('dashboard.table.resolved'), {
@@ -138,10 +119,51 @@ export default {
           duration: 1500,
         })
       }, 500)
+
+      window.open(
+        'mailto:' +
+          user.email +
+          '?subject=Pay%20your%20dues&body=You%20have%20unresolved%20dues%20Pay%20them%20as%20soon%20as%20possible',
+        '_blank'
+      )
     },
+
+    getStatusColor (status) {
+      if (status == true) {
+        return 'success'
+      }
+      return 'danger'
+    },
+
     search: debounce(function (term) {
       this.term = term
     }, 400),
+  },
+
+  created () {
+    this.remoteDB = new PouchDB(
+      'https://4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix:2d0f75eae437887122aec87b1225ad19a294f459beeb0a20fd69fb333cee4d4a@4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix.cloudantnosqldb.appdomain.cloud/studentinfo'
+    )
+  },
+
+  mounted () {
+    this.remoteDB
+      .allDocs({
+        include_docs: true,
+        attachments: true,
+      })
+      .then(result => {
+        var infos = result.rows
+        infos.forEach(element => {
+          if (
+            !element.doc.account.tuitionpaid ||
+            !element.doc.account.extrapaid
+          ) { this.info.push(element.doc) }
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
 }
 </script>

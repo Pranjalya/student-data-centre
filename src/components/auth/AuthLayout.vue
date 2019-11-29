@@ -2,19 +2,17 @@
 <div class="auth-layout row align-content--center">
   <div class="flex xs12 pa-3 flex-center">
     <router-link class="py-5 flex-center" to="/">
-      <va-icon-vuestic />
+      <h1 style="color: white; font-size: 40px">Welcome to Student Data Center</h1>
     </router-link>
   </div>
 
   <div class="flex xs12 pa-3">
     <div class="d-flex justify--center">
       <va-card class="auth-layout__card">
-        <va-tabs
-          v-model="tabIndex"
-          center
-        >
+        <va-tabs v-model="tabIndex" center>
           <va-tab>{{ $t('auth.login') }}</va-tab>
           <va-tab>{{ $t('auth.createNewAccount') }}</va-tab>
+          <va-tab>{{ $t('auth.student') }}</va-tab>
         </va-tabs>
 
         <va-separator/>
@@ -34,6 +32,7 @@ import VaIconVuestic from 'vuestic-ui/src/components/vuestic-components/va-icon/
 const tabs = [
   'login',
   'signup',
+  'student',
 ]
 
 export default {
@@ -42,7 +41,7 @@ export default {
   data () {
     return {
       selectedTabIndex: 0,
-      tabTitles: ['login', 'createNewAccount'],
+      tabTitles: ['login', 'createNewAccount', 'student'],
     }
   },
   computed: {

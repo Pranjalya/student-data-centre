@@ -13,8 +13,14 @@ const store = new Vuex.Store({
   modules: {
     app,
   },
-  state: {},
-  mutations: {},
+  state: {
+    username: '',
+  },
+  mutations: {
+    updateUser (state, name) {
+      state.username = name
+    },
+  },
 })
 
 Vue.use(VuexI18n.plugin, store)
