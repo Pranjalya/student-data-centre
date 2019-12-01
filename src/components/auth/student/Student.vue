@@ -165,64 +165,64 @@
 </template>
 
 <script>
-import VueQrReader from 'vue-qr-reader/dist/lib/vue-qr-reader.umd.js'
-var PouchDB = require('pouchdb').default
+import VueQrReader from "vue-qr-reader/dist/lib/vue-qr-reader.umd.js";
+var PouchDB = require("pouchdb").default;
 
 export default {
-  name: 'student',
+  name: "student",
   components: {
-    VueQrReader,
+    VueQrReader
   },
 
-  data () {
+  data() {
     return {
       scanned: false,
-      studentid: '',
-      name: '',
-      fathername: '',
-      rollno: '',
-      dob: '1999-07-07',
-      program: '',
+      studentid: "",
+      name: "",
+      fathername: "",
+      rollno: "",
+      dob: "1999-07-07",
+      program: "",
       programsList: [
         {
           id: 1,
-          description: 'B.E.',
+          description: "B.E."
         },
         {
           id: 2,
-          description: 'M.B.A.',
+          description: "M.B.A."
         },
         {
           id: 3,
-          description: 'MCA',
-        },
+          description: "MCA"
+        }
       ],
-      branch: '',
+      branch: "",
       branchList: [
         {
           id: 1,
-          description: 'CSE',
+          description: "CSE"
         },
         {
           id: 2,
-          description: 'Mechanical',
+          description: "Mechanical"
         },
         {
           id: 3,
-          description: 'ETC',
+          description: "ETC"
         },
         {
           id: 4,
-          description: 'IT',
+          description: "IT"
         },
         {
           id: 5,
-          description: 'Civil',
+          description: "Civil"
         },
         {
           id: 6,
-          description: 'EEE',
-        },
+          description: "EEE"
+        }
       ],
       semester: 0,
       semList: [
@@ -233,99 +233,105 @@ export default {
         { id: 5 },
         { id: 6 },
         { id: 7 },
-        { id: 8 },
+        { id: 8 }
       ],
-      email: '',
-      gender: '',
-      phone: '',
+      email: "",
+      gender: "",
+      phone: "",
 
       account: {
         tuitionfees: 0,
         tuitionpaid: false,
         charges: 0,
         extrapaid: false,
-        lastdate: '2019-06-05',
-        labfine: 0,
+        lastdate: "2019-06-05",
+        labfine: 0
       },
 
       bookdatas: [],
 
       book: {
-        bookid: '',
-        bookname: '',
-        lastdate: '2019-06-05',
+        bookid: "",
+        bookname: "",
+        lastdate: "2019-06-05"
       },
 
-      remoteDB: {},
-    }
+      remoteDB: {}
+    };
   },
 
   methods: {
-    clear (field) {
-      this[field] = ''
+    clear(field) {
+      this[field] = "";
     },
 
-    codeScanned (code) {
-      this.studentid = code
+    codeScanned(code) {
+      this.studentid = code;
       this.remoteDB
         .get(this.studentid)
         .then(doc => {
-          this.name = doc.name
-          this.fathername = doc.fathername
-          this.dob = doc.dob
-          this.rollno = doc.rollno
-          this.program = doc.program
-          this.branch = doc.branch
-          this.semester = doc.semester
-          this.email = doc.email
-          this.gender = doc.gender
-          this.phone = doc.phone
-          this.account = doc.account
-          this.bookdatas = doc.bookdatas
+          this.name = doc.name;
+          this.fathername = doc.fathername;
+          this.dob = doc.dob;
+          this.rollno = doc.rollno;
+          this.program = doc.program;
+          this.branch = doc.branch;
+          this.semester = doc.semester;
+          this.email = doc.email;
+          this.gender = doc.gender;
+          this.phone = doc.phone;
+          this.account = doc.account;
+          this.bookdatas = doc.bookdatas;
         })
-        .catch(err => console.log(err))
-      this.scanned = true
-    },
+        .catch(err => {
+          console.log(err);
+          if (err.status == 404) {
+            alert("Invalid QR Code");
+            document.location.reload();
+          }
+        });
+      this.scanned = true;
+    }
   },
 
-  created () {
+  created() {
     this.remoteDB = new PouchDB(
-      'https://4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix:2d0f75eae437887122aec87b1225ad19a294f459beeb0a20fd69fb333cee4d4a@4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix.cloudantnosqldb.appdomain.cloud/studentinfo'
-    )
+      "https://4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix:2d0f75eae437887122aec87b1225ad19a294f459beeb0a20fd69fb333cee4d4a@4f241480-c3c9-41c6-bb2e-98fd4cfe269e-bluemix.cloudantnosqldb.appdomain.cloud/studentinfo"
+    );
 
     this.$nextTick(() => {
-      this.$validator.validateAll()
-    })
+      this.$validator.validateAll();
+    });
   },
 
   computed: {
-    fields () {
+    fields() {
       return [
         {
-          name: '__slot:marker',
-          width: '30px',
-          dataClass: 'text-center',
+          name: "__slot:marker",
+          width: "30px",
+          dataClass: "text-center"
         },
         {
-          name: 'bookid',
-          title: this.$t('tables.headings.bookid'),
+          name: "bookid",
+          title: this.$t("tables.headings.bookid")
         },
         {
-          name: 'bookname',
-          title: this.$t('tables.headings.bookname'),
+          name: "bookname",
+          title: this.$t("tables.headings.bookname")
         },
         {
-          name: 'lastdate',
-          title: this.$t('tables.headings.lastdate'),
+          name: "lastdate",
+          title: this.$t("tables.headings.lastdate")
         },
         {
-          name: '__slot:actions',
-          dataClass: 'text-right',
-        },
-      ]
-    },
-  },
-}
+          name: "__slot:actions",
+          dataClass: "text-right"
+        }
+      ];
+    }
+  }
+};
 </script>
 
 <style lang="scss">
