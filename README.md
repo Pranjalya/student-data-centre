@@ -66,3 +66,17 @@ $ yarn build
 - Star the GitHub repo ;)
 - If you want to work further and update on this, do fork and submit pull requests, I'll look on it
 - Enjoy, please! :D
+
+**********************************************************************
+
+# UPDATES
+### Complaint module added. 
+-> Users can file a complaint without logging in.
+-> To view Complaints, check View Complaints section in Dashboard.
+-> There are cards for different departments to review complaints.
+-> Once complaint is `Resolved` by clicking on Resolved button for a specific complaint, the complaint goes to Resolved tab, so the complaints can be audited.
+
+### Email verification added
+-> Email verification added for scanning of QR
+-> An automated email is sent to the id of user whose QR code is being scanned.
+-> It uses SMTP relay.
