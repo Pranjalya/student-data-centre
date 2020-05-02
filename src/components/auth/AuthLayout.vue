@@ -13,6 +13,7 @@
           <va-tab>{{ $t('auth.login') }}</va-tab>
           <va-tab>{{ $t('auth.createNewAccount') }}</va-tab>
           <va-tab>{{ $t('auth.student') }}</va-tab>
+          <va-tab>{{ $t('auth.complaint') }}</va-tab>
         </va-tabs>
 
         <va-separator/>
@@ -33,6 +34,7 @@ const tabs = [
   'login',
   'signup',
   'student',
+  'complaint',
 ]
 
 export default {
@@ -41,7 +43,7 @@ export default {
   data () {
     return {
       selectedTabIndex: 0,
-      tabTitles: ['login', 'createNewAccount', 'student'],
+      tabTitles: ['login', 'createNewAccount', 'student', 'complaint'],
     }
   },
   computed: {

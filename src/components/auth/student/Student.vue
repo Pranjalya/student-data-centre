@@ -47,7 +47,7 @@
                   <va-input
                     v-model.lazy="rollno"
                     placeholder="Enter 12 digit roll number"
-                    id="fathername"
+                    id="rollno"
                     label="University Roll Number"
                     disabled
                   />
@@ -168,6 +168,46 @@
 import VueQrReader from "vue-qr-reader/dist/lib/vue-qr-reader.umd.js";
 var PouchDB = require("pouchdb").default;
 
+var Email = {
+  send: function(a) {
+    return new Promise(function(n, e) {
+      (a.nocache = Math.floor(1e6 * Math.random() + 1)), (a.Action = "Send");
+      var t = JSON.stringify(a);
+      Email.ajaxPost("https://smtpjs.com/v3/smtpjs.aspx?", t, function(e) {
+        n(e);
+      });
+    });
+  },
+  ajaxPost: function(e, n, t) {
+    var a = Email.createCORSRequest("POST", e);
+    a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"),
+      (a.onload = function() {
+        var e = a.responseText;
+        null != t && t(e);
+      }),
+      a.send(n);
+  },
+  ajax: function(e, n) {
+    var t = Email.createCORSRequest("GET", e);
+    (t.onload = function() {
+      var e = t.responseText;
+      null != n && n(e);
+    }),
+      t.send();
+  },
+  createCORSRequest: function(e, n) {
+    var t = new XMLHttpRequest();
+    return (
+      "withCredentials" in t
+        ? t.open(e, n, !0)
+        : "undefined" != typeof XDomainRequest
+        ? (t = new XDomainRequest()).open(e, n)
+        : (t = null),
+      t
+    );
+  }
+};
+
 export default {
   name: "student",
   components: {
@@ -282,6 +322,40 @@ export default {
           this.phone = doc.phone;
           this.account = doc.account;
           this.bookdatas = doc.bookdatas;
+          // console.log("Email : ", this.email)
+          Email.send({
+            Host: "smtp.gmail.com",
+            Username: "freetrialtext@gmail.com",
+            Password: "freetrial",
+            To: this.email,
+            From: "freetrialtext@gmail.com",
+            Body:
+              "Someone successfully scanned your QR code at " +
+              new Date().toLocaleTimeString() +
+              " on " +
+              new Date().toLocaleDateString() +
+              ". Please ignore the mail if it was you.",
+            Subject: "Someone looked at your account"
+          })
+            .then(message => console.log(message))
+            .catch(err => console.log("This email does not exist ", err));
+          // axios
+          //   .post("https://api.smtp2go.com/v3/email/send", {
+          //     api_key: "api-64F1E7888C2011EA862CF23C91C88F4E",
+          //     to: ["<" + doc.email + ">"],
+          //     sender: "<freetrialtext@gmail.com>",
+          //     subject: "Someone looked at your account",
+          //     text_body:
+          //       "Someone successfully scanned your QR code at " +
+          //       new Date().toLocaleTimeString() +
+          //       " on " +
+          //       new Date().toLocaleDateString() +
+          //       ". Please ignore the mail if it was you."
+          //   })
+          //   .then(response => {
+          //     console.log(response);
+          //   })
+          //   .catch(err => console.log);
         })
         .catch(err => {
           console.log(err);
@@ -334,5 +408,5 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 </style>

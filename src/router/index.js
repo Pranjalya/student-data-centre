@@ -48,6 +48,11 @@ export default new Router({
           component: () => import('../components/auth/recover-password/RecoverPassword.vue'),
         },
         {
+          name: 'complaint',
+          path: 'complaint',
+          component: () => import('../components/auth/complaint/Complaint.vue'),
+        },
+        {
           path: '',
           redirect: { name: 'login' },
         },
@@ -100,6 +105,12 @@ export default new Router({
           name: 'updatestudent',
           path: 'updatestudent',
           component: () => import('../components/dashboard/UpdateStudent.vue'),
+          default: false,
+        },
+        {
+          name: 'viewcomplaints',
+          path: 'viewcomplaints',
+          component: () => import('../components/dashboard/ViewComplaints.vue'),
           default: false,
         },
         {
