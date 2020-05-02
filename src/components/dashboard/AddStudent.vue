@@ -33,7 +33,7 @@
                   <va-input
                     v-model.lazy="rollno"
                     placeholder="Enter 12 digit roll number"
-                    id="fathername"
+                    id="rollno"
                     label="University Roll Number"
                     removable
                     required

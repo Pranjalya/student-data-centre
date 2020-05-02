@@ -12,7 +12,8 @@
     "keep_logged_in": "Keep me logged in",
     "termsOfUse": "Terms of Use.",
     "name": "Name",
-    "reset_password": "Reset password"
+    "reset_password": "Reset password",
+    "complaint": "Complaint Forum"
   },
   "404": {
     "title": "This page’s gone fishing.",
@@ -279,6 +280,7 @@
   "menu": {
     "addstudent": "Add Student Detail",
     "updatestudent": "Update Student Details",
+    "viewcomplaints": "Complaints Dashboard",
     "auth": "Auth",
     "student": "Student Details",
     "qrcode": "QR Code",

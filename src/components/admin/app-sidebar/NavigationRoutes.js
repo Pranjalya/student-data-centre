@@ -25,5 +25,12 @@ export const navigationRoutes = {
         iconClass: 'vuestic-iconset-settings',
       },
     },
+    {
+      name: 'viewcomplaints',
+      displayName: 'menu.viewcomplaints',
+      meta: {
+        iconClass: 'vuestic-iconset-forms',
+      },
+    },
   ],
 }
