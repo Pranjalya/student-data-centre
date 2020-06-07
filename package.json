@@ -1,9 +1,9 @@
 {
-  "name": "vuestic-admin",
-  "version": "2.0.0",
+  "name": "student-data-centre",
+  "version": "1.0.0",
   "private": false,
-  "description": "Vue.js admin template",
-  "author": "smartapant <smartapant@gmail.com>",
+  "description": "A Vue.js student data centre template",
+  "author": "Pranjalya <pranjalyawarrior@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
