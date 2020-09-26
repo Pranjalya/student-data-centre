@@ -64,7 +64,7 @@ $ yarn build
 # You liked it?
 
 - Star the GitHub repo ;)
-- If you want to work further and update on this, do fork and submit pull requests, I'll look on it
+- If you want to work further and update on this, do fork and submit pull requests, I'll definitely take a look at it 
 - Enjoy, please! :D
 
 **********************************************************************
