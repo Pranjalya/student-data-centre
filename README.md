@@ -80,3 +80,7 @@ $ yarn build
 - Email verification added for scanning of QR
 - An automated email is sent to the id of user whose QR code is being scanned.
 - It uses SMTP relay.
+
+
+**NOTE**  
+*The QR Scanner is tested in Google Chrome, Mozilla Firefox in Linux and Microsoft Edge, Mozilla Firefox in Microsoft Windows.
