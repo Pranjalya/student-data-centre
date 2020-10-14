@@ -83,4 +83,4 @@ $ yarn build
 
 
 **NOTE**  
-*The QR Scanner is tested in Google Chrome, Mozilla Firefox in Linux and Microsoft Edge, Mozilla Firefox in Microsoft Windows.
+*The QR Scanner is tested in Google Chrome, Mozilla Firefox in Linux and Microsoft Edge, Mozilla Firefox in Microsoft Windows.*
