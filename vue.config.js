@@ -17,6 +17,9 @@ if (process.env.VUE_APP_BOOK) {
 if (!process.env.VUE_APP_BOOK) {
   config = {
     lintOnSave: false,
+    publicPath: process.env.NODE_ENV === 'production'
+    ? '/student-data-centre/'
+    : '/',
     pages: {
       index: {
         // entry for the page
