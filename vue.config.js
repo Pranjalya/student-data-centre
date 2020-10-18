@@ -5,6 +5,9 @@ let config
 if (process.env.VUE_APP_BOOK) {
   config = {
     lintOnSave: false,
+    publicPath: process.env.NODE_ENV === 'production'
+      ? '/student-data-centre/'
+      : '/',
     pages: {
       index: {
         entry: 'src/vue-book/book-main.js',
@@ -18,8 +21,8 @@ if (!process.env.VUE_APP_BOOK) {
   config = {
     lintOnSave: false,
     publicPath: process.env.NODE_ENV === 'production'
-    ? '/student-data-centre/'
-    : '/',
+      ? '/student-data-centre/'
+      : '/',
     pages: {
       index: {
         // entry for the page
