@@ -1,4 +1,4 @@
-For scanning QR codes, laptop uses its webcam (if available), and mobiles use back camera by default.
+For scanning QR codes, laptop uses its webcam (if available), and mobile phones use back camera by default.
 
 ## Installation
 
